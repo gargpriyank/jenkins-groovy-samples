@@ -4,7 +4,7 @@ pipeline {
        stage('Transform yaml to CSV') {
            steps {
                script {
-                    def yamlData = readYaml file: 'department.yaml'
+                    def yamlData = readYaml file: './department.yaml'
                     println(yamlData)
                     def csvData = [
                        ['name', 'employee_count', 'domain', 'email', 'is_active'],

@@ -1,0 +1,19 @@
+pipeline {
+   agent any
+   stages {
+       stage('Transform yaml to CSV') {
+           steps {
+               script {
+                    def yamlData = readYaml file: 'department.yaml'
+                    println(yamlData)
+                    def csvData = [
+                       ['name', 'employee_count', 'domain', 'email', 'is_active'],
+                       [yamlData.name, yamlData.employee_count, yamlData.domain + '.local', yamlData.email + 'it.org.local', yamlData.is_active]
+                    ]
+                    println(csvData)
+                    writeCSV file: 'server.csv', records: csvData, format: CSVFormat.EXCEL
+               }
+           }
+       }
+   }
+}
